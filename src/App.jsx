@@ -20,7 +20,7 @@ import SpinnerFull from './ui/SpinnerFull';
 
 const LoginPage = lazy(() => import('./feature/authentication/Login'));
 const SignupPage = lazy(() => import('./feature/authentication/Signup'));
-const Unauthorized = lazy(() => import('./Pages/Unauthorized'));
+const Unauthorized = lazy(() => import('./pages/Unauthorized'));
 const ProtectedRoute = lazy(() => import('./ui/ProtectedRoute'));
 const ForgotPassword = lazy(() => import('./feature/authentication/Reset'));
 const User = lazy(() => import('./feature/user/User'));
