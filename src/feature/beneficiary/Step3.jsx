@@ -3,7 +3,7 @@ import { FormField } from './FormField';
 import { useFeeCalculator } from '../../hook/useFeeCalculator';
 import { FeeRow } from './FeeRow';
 import { inputCls } from '../../hook/selector';
-import Spinner from '../../ui/SpinnerMIni';
+import Spinner from '../../ui/SpinnerMini';
 
 const formFields = [
   {
