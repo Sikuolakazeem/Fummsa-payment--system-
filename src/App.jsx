@@ -28,6 +28,28 @@ const DataTables = lazy(() => import('./feature/dashboard/DataTables'));
 const UpdatePassword = lazy(() => import('./pages/UpdatePassword'));
 const VCDashboard = lazy(() => import('./feature/vc/VCDashboard'));
 
+import { Component } from 'react';
+
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ color: 'red', padding: '20px' }}>
+          Error: {this.state.error?.message}
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -41,52 +63,54 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
-        <Suspense fallback={<SpinnerFull />}>
-          <Routes>
-            <Route index element={<SignupPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="/login" element={<LoginPage />} />
+        <ErrorBoundary>
+          <Suspense fallback={<SpinnerFull />}>
+            <Routes>
+              <Route index element={<SignupPage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/login" element={<LoginPage />} />
 
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute
-                  allowedRole={[
-                    'checker',
-                    'approver',
-                    'auditor',
-                    'bursar',
-                    'admin',
-                  ]}
-                >
-                  <DataTables />
-                </ProtectedRoute>
-              }
-            />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute
+                    allowedRole={[
+                      'checker',
+                      'approver',
+                      'auditor',
+                      'bursar',
+                      'admin',
+                    ]}
+                  >
+                    <DataTables />
+                  </ProtectedRoute>
+                }
+              />
 
-            <Route
-              path="/vc"
-              element={
-                <ProtectedRoute allowedRole={['vc', 'd-vc']}>
-                  <VCDashboard />
-                </ProtectedRoute>
-              }
-            />
+              <Route
+                path="/vc"
+                element={
+                  <ProtectedRoute allowedRole={['vc', 'd-vc']}>
+                    <VCDashboard />
+                  </ProtectedRoute>
+                }
+              />
 
-            <Route
-              path="/user"
-              element={
-                <ProtectedRoute allowedRole="user">
-                  <User />
-                </ProtectedRoute>
-              }
-            />
+              <Route
+                path="/user"
+                element={
+                  <ProtectedRoute allowedRole="user">
+                    <User />
+                  </ProtectedRoute>
+                }
+              />
 
-            <Route path="/unauthorized" element={<Unauthorized />} />
-            <Route path="/resetpassword" element={<ForgotPassword />} />
-            <Route path="/update-password" element={<UpdatePassword />} />
-          </Routes>
-        </Suspense>
+              <Route path="/unauthorized" element={<Unauthorized />} />
+              <Route path="/resetpassword" element={<ForgotPassword />} />
+              <Route path="/update-password" element={<UpdatePassword />} />
+            </Routes>
+          </Suspense>
+        </ErrorBoundary>
       </BrowserRouter>
 
       <Toaster
