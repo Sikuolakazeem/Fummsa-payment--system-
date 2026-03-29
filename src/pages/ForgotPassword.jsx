@@ -44,7 +44,7 @@ function Resetpage() {
       <div className="page-transition mx-auto w-sm space-y-4 rounded-sm bg-white p-3 px-4 shadow-md">
         <div className="mb-4 flex flex-col items-center justify-center gap-0.5">
           <Logo />
-
+         
           {emailSent ? (
             <SuccessMessage
               sentTo={sentTo}

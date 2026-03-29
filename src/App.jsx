@@ -3,6 +3,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { lazy, Suspense } from 'react';
+import { Component } from 'react';
+
 import SpinnerFull from './ui/SpinnerFull';
 
 // import LoginPage from './feature/authentication/Login';
@@ -27,8 +29,6 @@ const User = lazy(() => import('./feature/user/User'));
 const DataTables = lazy(() => import('./feature/dashboard/DataTables'));
 const UpdatePassword = lazy(() => import('./pages/UpdatePassword'));
 const VCDashboard = lazy(() => import('./feature/vc/VCDashboard'));
-
-import { Component } from 'react';
 
 class ErrorBoundary extends Component {
   constructor(props) {
